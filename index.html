@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -352,6 +352,693 @@
     ╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝
             `;
             
+            addOutput(asciiArt, 'ascii-art');
+            addOutput('', '');
+            addOutput('💡 <span class="info">Type "help" to see available commands</span>', 'info');
+            addOutput('🎯 <span class="success">Quick start: Try "summary" or "skills"</span>', 'success');
+            addOutput('', '');
+        }
+
+        function processCommand(cmd) {
+            const command = cmd.trim().toLowerCase();
+            
+            addOutput(`<span class="prompt-text">varun@resume:~$</span> ${cmd}`, '');
+            
+            switch(command) {
+                case 'help':
+                    showHelp();
+                    break;
+                case 'summary':
+                    showSummary();
+                    break;
+                case 'education':
+                    showEducation();
+                    break;
+                case 'experience':
+                    showExperience();
+                    break;
+                case 'skills':
+                    showSkills();
+                    break;
+                case 'projects':
+                    showProjects();
+                    break;
+                case 'leadership':
+                    showLeadership();
+                    break;
+                case 'contact':
+                    showContact();
+                    break;
+                case 'clear':
+                    clearScreen();
+                    break;
+                case 'whoami':
+                    showWhoami();
+                    break;
+                case '':
+                    break;
+                default:
+                    addOutput(`<span class="error">Command not found: ${command}</span>`, 'error');
+                    addOutput('<span class="info">Type "help" to see available commands</span>', 'info');
+            }
+        }
+
+        function showHelp() {
+            const helpText = `
+<span class="section-header">📋 AVAILABLE COMMANDS</span>
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ <span class="highlight">help</span>       │ Show this help message                                                                    │
+│ <span class="highlight">summary</span>    │ Display professional summary and overview                                                 │
+│ <span class="highlight">education</span>  │ Show educational background and academic achievements                                      │
+│ <span class="highlight">experience</span> │ Display work experience and internships                                                   │
+│ <span class="highlight">skills</span>     │ List technical skills and competencies                                                    │
+│ <span class="highlight">projects</span>   │ Show key projects and achievements                                                         │
+│ <span class="highlight">leadership</span> │ Display leadership roles and responsibilities                                              │
+│ <span class="highlight">contact</span>    │ Show contact information                                                                   │
+│ <span class="highlight">whoami</span>     │ Display current user information                                                           │
+│ <span class="highlight">clear</span>      │ Clear the terminal screen                                                                  │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+            `;
+            addOutput(helpText, '');
+        }
+
+        function showSummary() {
+            const summaryText = `
+<span class="section-header">🎯 PROFESSIONAL SUMMARY</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💼 <span class="highlight">DevOps Engineer</span> with hands-on experience in healthcare technology
+🎓 <span class="highlight">Health Informatics Specialist</span> with strong technical foundation
+🔧 <span class="highlight">Automation Enthusiast</span> - Built tools that saved 60-70% of engineering time
+🚀 <span class="highlight">CI/CD Expert</span> - Managed deployment pipelines for 150+ healthcare clients
+
+🌟 <span class="info">Key Highlights:</span>
+   • Developed Python automation scripts for XML deployment generation
+   • Configured QA environments with IIS, SQL Server, and RDL report servers
+   • Expertise in Azure DevOps, Git, and Linux systems
+   • Strong background in Machine Learning and Health Informatics
+   • Leadership experience managing 100+ students and organizing tech events
+            `;
+            addOutput(summaryText, '');
+        }
+
+        function showEducation() {
+            const educationText = `
+<span class="section-header">🎓 EDUCATION</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏫 <span class="highlight">${resumeData.education.university}</span>
+📍 Location: ${resumeData.education.location}
+📅 Duration: ${resumeData.education.duration}
+🎯 Degree: ${resumeData.education.degree}
+⭐ GPA: ${resumeData.education.gpa}/10.0
+
+🔬 <span class="info">Specialization Focus:</span>
+   • Health Informatics and Medical Technology
+   • Healthcare Data Management Systems
+   • Clinical Decision Support Systems
+   • Medical Image Processing and Analysis
+            `;
+            addOutput(educationText, '');
+        }
+
+        function showExperience() {
+            const exp = resumeData.experience[0];
+            const experienceText = `
+<span class="section-header">💼 WORK EXPERIENCE</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏢 <span class="highlight">${exp.title}</span>
+🌐 Company: ${exp.company}
+📍 Location: ${exp.location}
+📅 Duration: ${exp.duration}
+
+🚀 <span class="info">Key Achievements:</span>
+${exp.responsibilities.map(resp => `   • ${resp}`).join('\n')}
+
+📊 <span class="success">Impact Metrics:</span>
+   • 60-70% reduction in deployment preparation time
+   • 150+ healthcare clients managed
+   • Zero-downtime deployments achieved
+   • Automated XML generation eliminating manual errors
+            `;
+            addOutput(experienceText, '');
+        }
+
+        function showSkills() {
+            const skillsText = `
+<span class="section-header">🛠️ TECHNICAL SKILLS</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💻 <span class="highlight">Programming Languages:</span>
+   ${resumeData.skills.programming.map(skill => `• ${skill}`).join('  ')}
+
+🔧 <span class="highlight">DevOps Tools:</span>
+   ${resumeData.skills.devops.map(skill => `• ${skill}`).join('  ')}
+
+⚙️ <span class="highlight">Process & Collaboration:</span>
+   ${resumeData.skills.process.map(skill => `• ${skill}`).join('  ')}
+
+🤝 <span class="highlight">Soft Skills:</span>
+   ${resumeData.skills.soft.map(skill => `• ${skill}`).join('  ')}
+
+🎯 <span class="info">Proficiency Levels:</span>
+   Python      ████████████████████ 95%
+   SQL         ████████████████████ 90%
+   Azure DevOps ████████████████████ 85%
+   Git         ████████████████████ 90%
+   Linux       ████████████████████ 80%
+            `;
+            addOutput(skillsText, '');
+        }
+
+        function showProjects() {
+            const projectsText = `
+<span class="section-header">🚀 KEY PROJECTS</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+${resumeData.projects.map((project, index) => `
+${index + 1}. <span class="highlight">${project.name}</span> (${project.year})
+   🔧 Tech Stack: ${project.technologies}
+   
+   📝 Description:
+${project.description.map(desc => `      • ${desc}`).join('\n')}
+`).join('\n')}
+
+🎯 <span class="info">Project Highlights:</span>
+   • 92.54% accuracy in crop disease prediction
+   • 60% reduction in deployment preparation time
+   • User-centered design with Figma wireframing
+   • Integration with production workflows
+            `;
+            addOutput(projectsText, '');
+        }
+
+        function showLeadership() {
+            const leadershipText = `
+<span class="section-header">👑 LEADERSHIP & RESPONSIBILITIES</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+${resumeData.leadership.map((role, index) => `
+${index + 1}. <span class="highlight">${role.title}</span>
+   🏢 Organization: ${role.organization}
+   📅 Duration: ${role.duration}
+   
+   📝 Impact: ${role.description}
+`).join('\n')}
+
+🌟 <span class="info">Leadership Metrics:</span>
+   • Led 100+ students in academic activities
+   • Organized 10+ tech events
+   • Managed 1200+ event participants
+   • Conducted health drives for 300+ people
+   • Hosted AI in Medical Diagnosis webinars
+   • Managed Health Tech Podcast Series
+            `;
+            addOutput(leadershipText, '');
+        }
+
+        function showContact() {
+            const contactText = `
+<span class="section-header">📞 CONTACT INFORMATION</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 <span class="highlight">Name:</span> ${resumeData.personal.name}
+📧 <span class="highlight">Email:</span> ${resumeData.personal.email}
+📱 <span class="highlight">Phone:</span> ${resumeData.personal.phone}
+📍 <span class="highlight">Location:</span> ${resumeData.personal.location}
+
+🔗 <span class="info">Connect with me:</span>
+   • LinkedIn: linkedin.com/in/varun-sharma-devops
+   • GitHub: github.com/varun-sharma-dev
+   • Portfolio: varun-sharma-resume.dev
+
+💬 <span class="success">Open to opportunities in:</span>
+   • DevOps Engineering
+   • Health Informatics
+   • Automation & CI/CD
+   • Healthcare Technology
+            `;
+            addOutput(contactText, '');
+        }
+
+        function showWhoami() {
+            const whoamiText = `
+<span class="section-header">🤖 SYSTEM INFORMATION</span>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 <span class="highlight">Current User:</span> varun
+🏠 <span class="highlight">Home Directory:</span> /home/varun/resume
+🖥️ <span class="highlight">Terminal:</span> Interactive CLI Resume v2.0
+🌐 <span class="highlight">Status:</span> <span class="success">Online & Available</span>
+⚡ <span class="highlight">Uptime:</span> Ready for new opportunities
+🎯 <span class="highlight">Mission:</span> Bridging DevOps and Healthcare Technology
+
+🔧 <span class="info">System Capabilities:</span>
+   • Real-time deployment automation
+   • Healthcare data processing
+   • CI/CD pipeline management
+   • Team collaboration & leadership
+            `;
+            addOutput(whoamiText, '');
+        }
+
+        function clearScreen() {
+            output.innerHTML = '';
+            displayWelcome();
+        }
+
+        // Event listeners
+        commandInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value;
+                processCommand(command);
+                this.value = '';
+            }
+        });
+
+        // Tab completion
+        commandInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                const currentInput = this.value.toLowerCase();
+                const matches = commands.filter(cmd => cmd.startsWith(currentInput));
+                
+                if (matches.length === 1) {
+                    this.value = matches[0];
+                } else if (matches.length > 1) {
+                    addOutput(`<span class="prompt-text">varun@resume:~$</span> ${currentInput}`, '');
+                    addOutput(`<span class="info">Possible completions:</span> ${matches.join(', ')}`, '');
+                }
+            }
+        });
+
+        // Keep focus on input
+        document.addEventListener('click', function() {
+            commandInput.focus();
+        });
+
+        // Initialize
+        displayWelcome();
+        commandInput.focus();
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Varun Sharma - CLI Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .terminal {
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            position: relative;
+        }
+        
+        .terminal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 0, 0.03) 2px,
+                    rgba(0, 255, 0, 0.03) 4px
+                );
+            pointer-events: none;
+        }
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 10px 15px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+        
+        .btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+        }
+        
+        .btn.close { background: #ff5f56; }
+        .btn.minimize { background: #ffbd2e; }
+        .btn.maximize { background: #27ca3f; }
+        
+        .terminal-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #00ff00;
+        }
+        
+        .output {
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .prompt {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .prompt-text {
+            color: #00ff00;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        
+        .input-line {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        #commandInput {
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            outline: none;
+            flex: 1;
+            padding: 5px 0;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #00ff00;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .command-history {
+            max-height: 70vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #00ff00 #1a1a1a;
+        }
+        
+        .command-history::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .command-history::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        .command-history::-webkit-scrollbar-thumb {
+            background: #00ff00;
+            border-radius: 4px;
+        }
+        
+        .ascii-art {
+            color: #00ff00;
+            font-size: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        .section-header {
+            color: #00ffff;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #00ffff;
+            padding-bottom: 5px;
+        }
+        
+        .highlight {
+            color: #ffff00;
+            font-weight: 500;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+        
+        .success {
+            color: #51cf66;
+        }
+        
+        .info {
+            color: #74c0fc;
+        }
+        
+        .glitch {
+            animation: glitch 0.3s ease-in-out;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        .typing-effect {
+            overflow: hidden;
+            animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @media (max-width: 768px) {
+            .terminal {
+                padding: 10px;
+            }
+            
+            .ascii-art {
+                font-size: 8px;
+                overflow-x: auto;
+                text-align: left;
+            }
+            
+            body {
+                font-size: 12px;
+            }
+            
+            .terminal-header {
+                padding: 8px 12px;
+            }
+            
+            .terminal-title {
+                font-size: 12px;
+            }
+            
+            #commandInput {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <button class="btn close"></button>
+                <button class="btn minimize"></button>
+                <button class="btn maximize"></button>
+            </div>
+            <div class="terminal-title">varun@resume:~$</div>
+        </div>
+        
+        <div class="command-history" id="output"></div>
+        
+        <div class="input-line">
+            <span class="prompt-text">varun@resume:~$</span>
+            <input type="text" id="commandInput" autofocus>
+            <span class="cursor"></span>
+        </div>
+    </div>
+
+    <script>
+        const resumeData = {
+            personal: {
+                name: "Varun Sharma",
+                location: "Bangalore, KA",
+                phone: "+91 70589 98646",
+                email: "varun.sharma110203@gmail.com",
+                education: "VIT Bhopal University"
+            },
+            education: {
+                degree: "B.Tech - Computer Science and Engineering (Spl. Health Informatics)",
+                university: "Vellore Institute of Technology, VIT Bhopal University",
+                location: "Bhopal, MP",
+                duration: "Aug 2021 - Jun 2025",
+                gpa: "8.09"
+            },
+            experience: [
+                {
+                    title: "DevOps Engineer Intern",
+                    company: "Streamline Healthcare",
+                    location: "Bangalore, KA",
+                    duration: "Mar 2025 – July 2025",
+                    responsibilities: [
+                        "Developed a Python-based automation script to generate XML deployment files, significantly reducing manual errors and saving 60–70% of engineers time.",
+                        "Hosted and configured QA environments involving IIS web servers, SQL Server (SSMS), and RDL report servers to mirror production-like setups for internal validation.",
+                        "Collaborated with the Build Release Team to manage and monitor deployment pipelines across 150+ healthcare clients, ensuring reliable and consistent releases.",
+                        "Executed application and database deployments for QA and production environments, coordinating with QA and Release Managers during staging and cutover.",
+                        "Utilized Azure DevOps and Git for version control, branch management, and deployment orchestration; handled customer-specific branches with precision for release workflows.",
+                        "Followed CI/CD best practices and internal change control processes to maintain compliance, traceability, and zero-downtime deployments."
+                    ]
+                }
+            ],
+            skills: {
+                programming: ["Python", "SQL"],
+                devops: ["Azure DevOps (Repos, Boards)", "Git", "Linux"],
+                process: ["SDLC/Agile", "Release Support"],
+                soft: ["Team Collaboration", "Troubleshooting", "Attention to Detail", "Willingness to Learn"]
+            },
+            projects: [
+                {
+                    name: "Electronic Health Record Portal",
+                    technologies: "Front-end, Wireframing",
+                    year: "2022",
+                    description: [
+                        "Designed and wireframed user-friendly interfaces for Doctor, Admin, and User portals using Figma, focusing on enhancing healthcare delivery and accessibility.",
+                        "Conducted user surveys to gather feedback, iterating on designs to improve usability and functionality.",
+                        "Prioritizing UI/UX best practices to enhance user experience and accessibility."
+                    ]
+                },
+                {
+                    name: "Crop Disease Prediction Model",
+                    technologies: "Machine Learning, Deep Learning, InceptionV3, VGG16, AlexNet",
+                    year: "2024",
+                    description: [
+                        "Implemented and fine-tuned the InceptionV3 model for crop disease prediction, leveraging pretrained weights from ImageNet and customizing the architecture for the specific dataset.",
+                        "Achieved a validation accuracy of 92.54 percent, outperforming alternative models like VGG16 and AlexNet in predictive accuracy.",
+                        "Enhanced prediction accuracy, contributing to improved agricultural decision-making and crop health management."
+                    ]
+                },
+                {
+                    name: "Deployment XML Automation Tool",
+                    technologies: "Python",
+                    year: "2025",
+                    description: [
+                        "Built a Python script to auto-generate structured XML deployment files used in staging releases, replacing a fully manual process.",
+                        "Reduced deployment preparation time by over 60% and eliminated common human errors in manual script writing.",
+                        "Integrated the script into internal workflows for the Build Release Team, enabling faster turnaround for client-specific deployments.",
+                        "Ensured compatibility with environment-specific configurations (Web, SQL, Report servers) to streamline local and production-ready deployments."
+                    ]
+                }
+            ],
+            leadership: [
+                {
+                    title: "Branch Representative",
+                    organization: "VIT Bhopal University",
+                    duration: "2022 – 2023",
+                    description: "Led academic and extracurricular activities for over 100 students in BTech CSE Health Informatics."
+                },
+                {
+                    title: "Founding Member & PR & Outreach Lead",
+                    organization: "Health-O-Tech Club | VIT Bhopal University",
+                    duration: "2022 – 2023",
+                    description: "Organized 10+ events with 1200+ students, conducted health drives for 300+, hosted AI in Medical Diagnosis webinars, and managed a Health Tech Podcast Series."
+                }
+            ]
+        };
+
+        const output = document.getElementById('output');
+        const commandInput = document.getElementById('commandInput');
+        const commands = ['help', 'summary', 'education', 'experience', 'skills', 'projects', 'leadership', 'contact', 'clear', 'whoami'];
+
+        function addOutput(text, className = '') {
+            const div = document.createElement('div');
+            div.className = `output ${className}`;
+            div.innerHTML = text;
+            output.appendChild(div);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function displayWelcome() {
+            const isMobile = window.innerWidth < 768;
+            
+            const desktopArt = `
+    ╔══════════════════════════════════════════════════════════════════════════════════════════════╗
+    ║  ██╗   ██╗ █████╗ ██████╗ ██╗   ██╗███╗   ██╗    ███████╗██╗  ██╗ █████╗ ██████╗ ███╗   ███╗ █████╗ ║
+    ║  ██║   ██║██╔══██╗██╔══██╗██║   ██║████╗  ██║    ██╔════╝██║  ██║██╔══██╗██╔══██╗████╗ ████║██╔══██╗║
+    ║  ██║   ██║███████║██████╔╝██║   ██║██╔██╗ ██║    ███████╗███████║███████║██████╔╝██╔████╔██║███████║║
+    ║  ╚██╗ ██╔╝██╔══██║██╔══██╗██║   ██║██║╚██╗██║    ╚════██║██╔══██║██╔══██║██╔══██╗██║╚██╔╝██║██╔══██║║
+    ║   ╚████╔╝ ██║  ██║██║  ██║╚██████╔╝██║ ╚████║    ███████║██║  ██║██║  ██║██║  ██║██║ ╚═╝ ██║██║  ██║║
+    ║    ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝    ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝║
+    ║                                                                                                        ║
+    ║                               DevOps Engineer | Health Informatics Specialist                        ║
+    ║                                   🚀 Welcome to my interactive CLI resume! 🚀                       ║
+    ╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝
+            `;
+            
+            const mobileArt = `
+    ╔═══════════════════════════════════════════════════════════╗
+    ║                                                           ║
+    ║  ██╗   ██╗ █████╗ ██████╗ ██╗   ██╗███╗   ██╗           ║
+    ║  ██║   ██║██╔══██╗██╔══██╗██║   ██║████╗  ██║           ║
+    ║  ██║   ██║███████║██████╔╝██║   ██║██╔██╗ ██║           ║
+    ║  ╚██╗ ██╔╝██╔══██║██╔══██╗██║   ██║██║╚██╗██║           ║
+    ║   ╚████╔╝ ██║  ██║██║  ██║╚██████╔╝██║ ╚████║           ║
+    ║    ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝           ║
+    ║                                                           ║
+    ║   ███████╗██╗  ██╗ █████╗ ██████╗ ███╗   ███╗ █████╗   ║
+    ║   ██╔════╝██║  ██║██╔══██╗██╔══██╗████╗ ████║██╔══██╗  ║
+    ║   ███████╗███████║███████║██████╔╝██╔████╔██║███████║  ║
+    ║   ╚════██║██╔══██║██╔══██║██╔══██╗██║╚██╔╝██║██╔══██║  ║
+    ║   ███████║██║  ██║██║  ██║██║  ██║██║ ╚═╝ ██║██║  ██║  ║
+    ║   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝  ║
+    ║                                                           ║
+    ║            DevOps Engineer | Health Informatics          ║
+    ║              🚀 CLI Resume - Mobile Ready! 🚀            ║
+    ╚═══════════════════════════════════════════════════════════╝
+            `;
+            
+            const asciiArt = isMobile ? mobileArt : desktopArt;
             addOutput(asciiArt, 'ascii-art');
             addOutput('', '');
             addOutput('💡 <span class="info">Type "help" to see available commands</span>', 'info');
